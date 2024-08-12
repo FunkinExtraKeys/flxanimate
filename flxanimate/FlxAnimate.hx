@@ -577,7 +577,7 @@ class FlxAnimate extends FlxSprite
 			var trimmed:String = pathOrStr.trim();
 			trimmed = trimmed.substr(trimmed.length - 5).toLowerCase();
 
-			if(trimmed == '.json') myJson = sys.io.File.getContent(myJson); //is a path
+			if(trimmed == '.json') myJson = #if sys sys.io.File.getContent(myJson); #else openfl.Assets.getText(myJson); #end //is a path
 			animJson = cast haxe.Json.parse(_removeBOM(myJson));
 		}
 		else animJson = cast myJson;
@@ -590,12 +590,12 @@ class FlxAnimate extends FlxSprite
 
 		if(trimmed == '.json') //Path is json
 		{
-			myData = sys.io.File.getContent(pathOrStr);
+			myData = #if sys sys.io.File.getContent(pathOrStr); #else openfl.Assets.getText(pathOrStr); #end
 			isXml = false;
 		}
 		else if (trimmed.substr(1) == '.xml') //Path is xml
 		{
-			myData = sys.io.File.getContent(pathOrStr);
+			myData = #if sys sys.io.File.getContent(pathOrStr); #else openfl.Assets.getText(pathOrStr); #end
 			isXml = true;
 		}
 		myData = _removeBOM(myData);
